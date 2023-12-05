@@ -350,3 +350,12 @@ body {
   font-size: 20px;
   color: rgb(75, 166, 245);
 }
+
+.data-time {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  font-size: 14px;
+  font-weight: bold;
+  color: rgb(111, 208, 219);
+}

