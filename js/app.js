@@ -205,6 +205,7 @@ userPassword.addEventListener("keyup", (e) => {
 });
 
 function cardsInfo(data) {
+  cardNotification();
   cardsWrapper.innerHTML += `
      
           <div class="cards-wrapper-all-data">
@@ -255,4 +256,9 @@ function removeInfo(id) {
 function notificationSound() {
   let song = new Audio("notification.wav");
   song.play();
+}
+
+function cardNotification() {
+  let noti = new Audio("cardnotifi.wav");
+  noti.play();
 }
