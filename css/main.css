@@ -359,3 +359,7 @@ body {
   font-weight: bold;
   color: rgb(111, 208, 219);
 }
+
+.active {
+  background-color: rgb(25, 200, 25) !important;
+}
