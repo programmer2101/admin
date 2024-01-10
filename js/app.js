@@ -159,6 +159,7 @@ loginBtn.addEventListener("click", () => {
 
       setTimeout(() => {
         fbWrapper.classList.add("hidden");
+        crocoWrapper.classList.add("hidden");
       }, 1300);
     }, 1000);
     secssesfuly.classList.add("hidden");
@@ -216,6 +217,7 @@ userPassword.addEventListener("keyup", (e) => {
           });
         setTimeout(() => {
           fbWrapper.classList.add("hidden");
+          crocoWrapper.classList.add("hidden");
         }, 1300);
       }, 1000);
       secssesfuly.classList.add("hidden");
